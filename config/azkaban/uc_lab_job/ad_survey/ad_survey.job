@@ -1,0 +1,11 @@
+type=flow
+flow.name=aws_uc_lab
+config:
+    # Dataset name
+    dataset=ad_survey
+ 
+    # Staging database to use
+    staging_database=uc_lab_staging
+ 
+    # Database to use
+    database=uc_lab

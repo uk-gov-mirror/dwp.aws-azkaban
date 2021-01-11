@@ -1,0 +1,3 @@
+type=command
+dependencies=build_dataset
+command=sh ./opt/emr/repos/chs-uc-lab/build_views.sh ${dataset} ${database} ${staging_database} ${username}
