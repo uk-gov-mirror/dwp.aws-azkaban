@@ -11,8 +11,10 @@ output "secrets" {
 
 output "ecs_services" {
   value = {
-    executor  = aws_ecs_service.azkaban_executor
-    webserver = aws_ecs_service.azkaban_executor
+    executor           = aws_ecs_service.azkaban_executor
+    webserver          = aws_ecs_service.azkaban_executor
+    external_executor  = aws_ecs_service.azkaban_external_executor
+    external_webserver = aws_ecs_service.azkaban_external_executor
   }
 }
 
@@ -36,4 +38,12 @@ output "azkaban_executor_sg" {
 
 output "azkaban_webserver_sg" {
   value = aws_security_group.azkaban_webserver
+}
+
+output "azkaban_external_executor_sg" {
+  value = aws_security_group.azkaban_external_executor
+}
+
+output "azkaban_external_webserver_sg" {
+  value = aws_security_group.azkaban_external_webserver
 }

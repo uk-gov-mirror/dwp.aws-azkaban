@@ -68,12 +68,12 @@ data "template_file" "azkaban_webserver_jmx_exporter_definition" {
 }
 
 resource "aws_ecs_service" "azkaban_webserver" {
-  name             = "azkaban-webserver"
-  cluster          = data.terraform_remote_state.common.outputs.ecs_cluster_main.id
-  task_definition  = aws_ecs_task_definition.azkaban_webserver.arn
-  platform_version = var.platform_version
-  desired_count    = 1
-  launch_type      = "FARGATE"
+  name                               = "azkaban-webserver"
+  cluster                            = data.terraform_remote_state.common.outputs.ecs_cluster_main.id
+  task_definition                    = aws_ecs_task_definition.azkaban_webserver.arn
+  platform_version                   = var.platform_version
+  desired_count                      = 1
+  launch_type                        = "FARGATE"
   deployment_minimum_healthy_percent = 100
   deployment_maximum_percent         = 200
 
