@@ -35,4 +35,4 @@ sudo amazon-cloudwatch-agent-ctl -a append-config -m ec2 -c file:$CONFIG_FILE -s
 # Synchronize external files on Batch EMR
 /home/hadoop/get_scripts.sh component/uc_repos /opt/emr/repos
 
-sudo su -c "export AZK_ID=$FLOW_ID; $SCRIPT_NAME $SCRIPT_ARGUMENTS" - $USERNAME
+sudo su -c "AZK_ID=$FLOW_ID $SCRIPT_NAME $SCRIPT_ARGUMENTS" - $USERNAME

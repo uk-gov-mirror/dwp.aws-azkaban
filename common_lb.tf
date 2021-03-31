@@ -45,31 +45,6 @@ resource "aws_lb_target_group" "azkaban_webserver" {
 
   tags = merge(local.common_tags, { Name = "azkaban-webserver" })
 }
-resource "aws_lb_target_group" "azkaban_external_webserver" {
-  name        = "azkaban-external-webserver-http"
-  port        = jsondecode(data.aws_secretsmanager_secret_version.workflow_manager.secret_binary).ports.azkaban_external_webserver_port
-  protocol    = "HTTPS"
-  vpc_id      = module.workflow_manager_vpc.vpc.id
-  target_type = "ip"
-
-  health_check {
-    protocol = "HTTPS"
-    port     = jsondecode(data.aws_secretsmanager_secret_version.workflow_manager.secret_binary).ports.azkaban_external_webserver_port
-    path     = "/"
-    matcher  = "200"
-  }
-
-  stickiness {
-    enabled = true
-    type    = "lb_cookie"
-  }
-
-  lifecycle {
-    create_before_destroy = true
-  }
-
-  tags = merge(local.common_tags, { Name = "azkaban-external-webserver" })
-}
 
 resource "aws_security_group" "workflow_manager_loadbalancer" {
   vpc_id = module.workflow_manager_vpc.vpc.id
@@ -88,13 +63,4 @@ resource "aws_security_group_rule" "allow_loadbalancer_egress_azkaban_webserver"
   to_port                  = jsondecode(data.aws_secretsmanager_secret_version.workflow_manager.secret_binary).ports.azkaban_webserver_port
   security_group_id        = aws_security_group.workflow_manager_loadbalancer.id
   source_security_group_id = aws_security_group.azkaban_webserver.id
-}
-resource "aws_security_group_rule" "allow_loadbalancer_egress_azkaban_external_webserver" {
-  description              = "Allow loadbalancer to access azkaban external webserver user interface"
-  type                     = "egress"
-  protocol                 = "tcp"
-  from_port                = jsondecode(data.aws_secretsmanager_secret_version.workflow_manager.secret_binary).ports.azkaban_external_webserver_port
-  to_port                  = jsondecode(data.aws_secretsmanager_secret_version.workflow_manager.secret_binary).ports.azkaban_external_webserver_port
-  security_group_id        = aws_security_group.workflow_manager_loadbalancer.id
-  source_security_group_id = aws_security_group.azkaban_external_webserver.id
 }

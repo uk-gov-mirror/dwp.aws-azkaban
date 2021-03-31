@@ -49,6 +49,10 @@ variable "https_port" {
   default = 443
 }
 
+variable "external_https_port" {
+  default = 8443
+}
+
 variable "http_port" {
   default = 80
 }

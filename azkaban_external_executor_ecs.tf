@@ -1,5 +1,5 @@
 resource "aws_ecs_task_definition" "azkaban_external_executor" {
-  family                   = "azkaban-executor"
+  family                   = "azkaban-external-executor"
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
   cpu                      = "512"

@@ -45,7 +45,7 @@ resource "aws_rds_cluster" "azkaban_database" {
 }
 
 resource "aws_rds_cluster" "azkaban_external_database" {
-  cluster_identifier   = "azkaban-database"
+  cluster_identifier   = "azkaban-external-database"
   database_name        = jsondecode(data.aws_secretsmanager_secret_version.workflow_manager.secret_binary).azkaban_external_db_name
   engine               = "aurora-mysql"
   engine_version       = "5.7.mysql_aurora.2.07.1"

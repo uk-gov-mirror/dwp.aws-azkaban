@@ -18,3 +18,8 @@ resource "aws_iam_role_policy_attachment" "azkaban_external_executor_logs_attach
   role       = aws_iam_role.azkaban_external_executor.name
   policy_arn = aws_iam_policy.azkaban_executor_logs.arn
 }
+
+resource "aws_iam_role_policy_attachment" "azkaban_external_executor_read_secret_attachment" {
+  role       = aws_iam_role.azkaban_external_executor.name
+  policy_arn = aws_iam_policy.azkaban_executor_read_secret.arn
+}

@@ -1,5 +1,5 @@
 resource "aws_ecs_task_definition" "azkaban_external_webserver" {
-  family                   = "azkaban-webserver"
+  family                   = "azkaban-external-webserver"
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
   cpu                      = "512"
